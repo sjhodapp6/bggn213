@@ -9,4 +9,4 @@ Bioinformatics class at UC San Diego Fall 2021
 - 06. R Functions
 - 07. 
 - 08.
-- 09. Halloween candy analysis [source]()
+- 09. Halloween candy analysis [source](https://github.com/sjhodapp6/bggn213/blob/main/class09_mini_project/class09.Rmd)
