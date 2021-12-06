@@ -9,6 +9,7 @@ Bioinformatics class at UC San Diego Fall 2021
 - 06. R Functions
 - 07. Hands-on with Git and GitHub 
 - 08. Introduction to machine learning for Bioinformatics 1 
+- 09. Unsupervised Learning Mini-Project
 - 10. Halloween candy analysis [source](https://github.com/sjhodapp6/bggn213/blob/main/class09_mini_project/class09.Rmd)
 - 11. Structural Bioinformatics
 - 12. Bioinformatics in structure prediction and design 
