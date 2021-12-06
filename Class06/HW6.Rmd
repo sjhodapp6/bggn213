@@ -1,0 +1,126 @@
+---
+title: "HW 6"
+author: 'Stefanie Hodapp (PID: A53300084)'
+date: "10/20/2021"
+output:
+  pdf_document: default
+  word_document: default
+  html_document: default
+---
+
+Make dataframe 
+
+```{r}
+df <- data.frame(a=1:10, b=seq(200,400,length=10),c=11:20,d=NA)
+df
+```
+
+Run analysis code 
+
+```{r}
+df$a <- (df$a - min(df$a)) / (max(df$a) - min(df$a))
+df$b <- (df$b - min(df$a)) / (max(df$b) - min(df$b))
+df$c <- (df$c - min(df$c)) / (max(df$c) - min(df$c))
+df$d <- (df$d - min(df$d)) / (max(df$a) - min(df$d))
+
+df$a
+df$b
+df$c
+df$d
+```
+
+Make new data frame and run the analysis code without errors
+```{r}
+df_new <- data.frame(a=1:10, b=seq(200,400,length=10),c=11:20,d=NA)
+df_new
+```
+
+```{r}
+df_new$a <- (df_new$a - min(df_new$a)) / (max(df_new$a) - min(df_new$a))
+df_new$b <- (df_new$b - min(df_new$b)) / (max(df_new$b) - min(df_new$b))
+df_new$c <- (df_new$c - min(df_new$c)) / (max(df_new$c) - min(df_new$c))
+df_new$d <- (df_new$d - min(df_new$d)) / (max(df_new$d) - min(df_new$d))
+
+df_new$a
+df_new$b
+df_new$c
+df_new$d
+```
+Improve the analysis code by writing your own function
+
+```{r}
+df_function <- function(x) {
+  (x - min(x)) / (max(x) - min(x))
+}
+```
+
+Try out the function on one of the columns of the columb on df_new
+```{r}
+df_function(df_new$a)
+```
+
+```{r}
+apply(df, 2, df_function)
+```
+
+Question 6:
+
+Read in the PDB file. I am comm
+
+```{r}
+library(bio3d)
+s1 <- read.pdb("4AKE")  # kinase with drug
+s2 <- read.pdb("1AKE")  # kinase no drug
+s3 <- read.pdb("1E4Y")  # kinase with drug
+```
+Produce a new smaller PDB object from the original file containing a subset of atoms using 'trim.pdb()'. 
+
+```{r}
+s1.chainA <- trim.pdb(s1, chain="A", elety="CA")
+s2.chainA <- trim.pdb(s2, chain="A", elety="CA")
+s3.chainA <- trim.pdb(s1, chain="A", elety="CA")
+```
+
+```{r}
+s1.b <- s1.chainA$atom$b
+s2.b <- s2.chainA$atom$b
+s3.b <- s3.chainA$atom$b
+```
+
+Draw a standard line plot with secondary structure in the marginal regions. 
+
+```{r}
+plotb3(s1.b, sse=s1.chainA, typ="l", ylab="Bfactor")
+plotb3(s2.b, sse=s2.chainA, typ="l", ylab="Bfactor")
+plotb3(s3.b, sse=s3.chainA, typ="l", ylab="Bfactor")
+```
+Generalize the original code above to work with any set of input protein structures
+
+For a given PDB code, the prot_drug_interact function will read-in the PDB file and store this as "protein". The next argument will use "protein" as the input and produce a new smaller PDB object consisting of chain "A", which will be stored as "protein.chainA". Next, the function will pull out temperature factor "b" data from the "protein.chainA" file and store this as "protein.b". Finally, the data in "protein.b" will be plotted as a line plot with secondary structure "protein.chainA".
+
+```{r}
+prot_drug_interact <- function(PDB_code) {
+  protein <- read.pdb(PDB_code)
+  protein.chainA <- trim.pdb(protein, chain="A", elety="CA")
+  protein.b <- protein.chainA$atom$b
+  plotb3(protein.b, sse=protein.chainA, typ="l", ylab="Bfactor")
+}
+```
+
+Test function on protein 4AKE
+
+```{r}
+prot_drug_interact("4AKE")
+```
+
+Apply this function to all proteins in a given list using 'lapply()'. I will make a list of the 3 proteins to test out the lapply function and call this "prot_list". 
+
+```{r}
+prot_list <- c("4AKE", "1AKE", "1E4Y")
+print(prot_list)
+```
+
+The "lapply()" function specifies the protein list followed by the function to be applied to each element in the list. 
+```{r}
+lapply(prot_list, prot_drug_interact)
+```
