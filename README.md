@@ -13,3 +13,6 @@ Bioinformatics class at UC San Diego Fall 2021
 - 11. Structural Bioinformatics
 - 12. Bioinformatics in structure prediction and design 
 - 15. Transcriptomics and the analysis of RNA-Seq data
+- 16. RNA-Seq analysis mini-project
+- 17. Vaccination rate mini project
+- 19. Genome informatics
